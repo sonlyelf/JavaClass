@@ -10,9 +10,7 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
-  
-  
-  	<!-- 中文支援 -->
+	<!-- 中文支援 -->
 	<filter>
 		<filter-name>springUtf8Encoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -66,5 +64,6 @@
     <filter-mapping>
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <url-pattern>/mvc/*</url-pattern>
-    </filter-mapping> 
+    </filter-mapping>  
+  
 </web-app>
