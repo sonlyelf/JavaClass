@@ -1,0 +1,51 @@
+訂房系統架構
++------+      +------------+     +---------+     +-----+   
+| HTML | ---> | Controller | --->| Service | --->| DAO | --> MySQL( room , booking_room)
++------+      +------------+     +---------+     +-----+ 
+
+
++-----------------+    +---------------------+ 
+| room.jsp        |--->| RoomController      |     +------------+     +---------+  
+| room_update.jsp |--->| RoomUpdateController| --->| RoomService| --->| RoomDAO | --> MySQL( room )
++-----------------+    +---------------------+     +------------+     +---------+ 
+
+
+系統URL設計：
+http://localhost/JavaWeb
++--------+-----------------------------------+-----------------------------------		
+| Method |	Servlet Path  (URI )             |  Memo
++--------+ ----------------------------------+-------------------------------------	
+| GET	 |  /room                            |	(進入到room 首頁)
+| GET	 |  /room ？deletedId=123 	         |	(刪除指定room 紀錄)
+| POST   |	/room                            |	(新增room 紀錄)
+| GET	 |	/room /update?roomId=123         |	(進入到room 修改頁面，並指定要修改紀錄)
+| POST   |	/room /update                    |	(修改room 紀錄)
+| GET    |  /bookingroom                     |  (進入到bookingoom 首頁)
+| POST   |  /bookingroom                     |  (新增bookingoom 紀錄)
++--------+-----------------------------------+----------------------------------------
+
+
+
+
+Model
+    |-po(對應資料表的紀錄)
+    	|-Room.java
+    	|-BookingRoom.java
+   	｜-dto (傳遞給HTML前端頁面組合資料)	
+   		|-BookingRoomDto.java
+
+DAO
+	|-RoomDao.java(interface)
+	|-RoomDaoImpl.java
+	|-BookingRoomDao.java(interface)
+	|-BookingRoomDaoImpl.java
+	
+Service
+	|-RoomService.java
+	|-BookingRoomService.java	
+	
+	
+Controller
+	|-RoomController.java
+	|-RoomUpdateController.java
+		

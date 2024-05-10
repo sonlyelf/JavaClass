@@ -1,0 +1,56 @@
+加入學生登入系統架構
+
++------+      +------------+     +---------+     +-----+   
+| HTML | ---> | Controller | --->| Service | --->| DAO | --> MySQL(stodent)
++------+      +------------+     +---------+     +-----+ 
+
+訪客留言系統URL設計：
+http://localhost/JavaWeb
++--------+-----------------------------------+-----------------------------------		
+| Method |	Servlet Path  (URI )             |  Memo
++--------+ ----------------------------------+-------------------------------------		
+| GET	 |  /sportclass                      |	(進入到sportclass首頁)
+| GET	 |  /sportclass？deleted=123 	     |	(刪除指定sportclass紀錄)
+| POST   |	/sportclass                      | (新增sportclass紀錄)
+| GET	 |	/sportclass/update?updateId=123  |	(進入到sportclass修改頁面，並指定要修改紀錄)
+| POST   |	/sportclass/update               |	(修改sportclass紀錄)
+| GET    |  /booking_course                  |  (進入到booking_course首頁)
+| POST   |  /booking_course                  |  (新增booking_course紀錄)
++--------+-----------------------------------+----------------------------------------
+
+
+Model:
+  	|-SportClass.java  設定/定義課程紀錄資料
+  	
+
+View:
+	SportClass.jsp(主頁-含新增與列表)
+	SportClass_update.jsp （新增完成頁面）
+
+
+
+Controller:
+ ｜-	SportClassController.java
+ 	     |-GET(重導到首頁/刪除紀錄)
+ 	     |-POST(新增紀錄)
+ 	     
+ |-SportClassUpdateComtroller.java
+         |-GET(得到要修改的紀錄)
+         |-POST(修改紀錄) 
+         
+
+Service:
+
+		|- SportClassService.java  介面（CRUD ）
+		|- SportClassServiceImppl.java  實作（CRUD - 可以切換DAO的實作）  
+		
+	
+DAO：
+    	|-SportClasstDAO 介面（CRUD ）
+    	|-SportClassDAOInMemory  實作（CRUD InMemory 版本)
+    	|-SportClasstDAOMySQL  實作（CRUD MySQL 版本 ->利用 JdbcTemplate)
+    	
+    	
+Filter:(額外新增)
+    	｜-UTF8EncodeFilter.java(過濾/SportClass/*  路徑下所有內容都必須支援UTF-8編碼)
+    	｜-PassCodeFilter.java (過濾/SportClassk/*  路徑必須帶入 ?code=1234 才可以進入首頁)

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="./css/buttons.css">
+<title>My BMR計算機</title>
+</head>
+<body style="padding: 15px">
+
+	<h2>
+	<pre>
+	基礎代謝率（BMR）計算會受到身高、體重、年齡和性別有差異，目前有一種較簡單算法：
+	 男性：（10 ×公斤體重）+（6.25 × 公分身高）-（5 ×年齡歲數）+ 5. 
+	 女性：（10 ×公斤體重）+（6.25 × 公分身高）-（5 ×年齡歲數）–161.
+	 
+	 </pre>
+	
+	</h2>
+		<form class="pure-form"  action="http://localhost:8080/JavaWeb/servlet/BMR" method= "post" target="result">
+	<fieldset>
+	<legend>BMR計算機</legend>
+			姓名:<input type= "text" id= "userName" name = "userName" placeholder ="請輸入姓名：" required><p>
+
+			性別： 	<label> <input type="radio" class="form-check-input" name="Gender" id="Gender" value="M" required> 先生 </label>
+                	<label> <input type="radio" class="form-check-input" name="Gender" id="Gender" value="F" required> 小姐 </label><p>
+			
+		
+			年齡:<input type= "number" id= "userAge" name = "userAge" placeholder ="請輸入年齡：" required><p>
+			身高(公分):<input type= "number" id= "userHeight" name = "userHeight" placeholder ="請輸入身高：" required min="70" max="300"><p>
+			體重(公斤):<input type= "number" id= "userWeight" name = "userWeight" placeholder ="請輸入體重：" required min="20" max="300"><p>
+			<button type = "reset" class="pure-button">重置</button>
+			<button type = "submit" class="pure-button pure-button-primary">傳送</button>
+			<a href="/JavaWeb/servlet/BMR" class="button-success pure-button">紀錄</a>
+		
+	</fieldset>
+	
+	</form>
+	
+	<!-- BMR結果iframe-->
+	
+	<iframe id="result" name ="result" frameborder="0"></iframe>
+	
+
+</body>
+</html>
