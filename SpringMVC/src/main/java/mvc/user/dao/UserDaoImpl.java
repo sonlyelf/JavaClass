@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import mvc.user.model.po.Statistics;
 import mvc.user.model.po.User;
 
 @Repository
@@ -30,6 +31,7 @@ public class UserDaoImpl implements UserDao {
 	public int addUser(User user) {
 		//String sql = "insert into user(name, age, birth, resume, education_id, gender_id) values(?, ?, ?, ?, ?, ?)";
 		//return jdbcTemplate.update(sql, user.getName(), user.getAge(), user.getBirth(), user.getResume(), user.getEducationId(), user.getGenderId());
+		
 		String sql = "insert into user(name, age, birth, resume, education_id, gender_id) values(:name, :age, :birth, :resume, :educationId, :genderId)";
 		// 自動將 user 物件的屬性值給 sql 參數(?)使用
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(user);
@@ -114,6 +116,22 @@ public class UserDaoImpl implements UserDao {
 		return interestIds;
 	}
 
+	@Override
+	public List<Statistics> queryGenderStatistics() {
+		String sql = "SELECT a.gender_id as id, b.item_name as name, count(*) as count "
+					+ "FROM user a, base_data b "
+					+ "where a.gender_id = b.item_id and b.group_name = 'Gender' "
+					+ "group by a.gender_id, b.item_name";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Statistics.class));
+	}
 
+	@Override
+	public List<Statistics> queryEducationStatistics() {
+		String sql = "SELECT a.education_id as id, b.item_name as name, count(*) as count "
+					+ "FROM user a, base_data b "
+					+ "where a.education_id = b.item_id and b.group_name = 'Education' "
+					+ "group by a.education_id, b.item_name";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Statistics.class));
+	}
 
 }
